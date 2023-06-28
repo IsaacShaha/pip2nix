@@ -162,9 +162,14 @@ class NixFreezeCommand(InstallCommand):
         cache = re.findall('url = "([^"]+)"; sha256 = "([^"]+)"', cache, re.M)
         cache = dict(cache)
 
+        args = ["pkgs", "fetchurl", "fetchgit", "fetchhg", "recursiveMerge" ]
+        for pkg in sorted(packages.values(), key=attrgetter('name')):
+            args.append(f"{pkg.name} ? {{}}")
+        args = "{ " + ",\n  ".join(args) + "\n}"
+
         with open(self.config['pip2nix']['output'], 'w') as f:
             self._write_about_comment(f)
-            f.write('{ pkgs, fetchurl, fetchgit, fetchhg }:\n\n')
+            f.write(f"{args}:\n\n")
             f.write('self: super: {\n')
             f.write('  ' + indent(2, '\n'.join(
                 '"{}" = {}'.format(pkg.name,

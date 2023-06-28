@@ -178,9 +178,9 @@ class PythonPackage(object):
 
     def to_nix(self, include_lic, cache={}):
         template = '\n'.join((
-            'super.buildPythonPackage rec {{',
+            'super.buildPythonPackage (recursiveMerge (rec {{',
             '  {args}',
-            '}};',
+            f"""}}}}) {self.name});""",
         ))
         meta_template = '\n'.join((
             'meta = {{',
