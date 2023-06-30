@@ -1,6 +1,8 @@
-# Why the Fork?
+*************
+Why the Fork?
+*************
 
-Certain python packages, such as cryptography, require extra dependencies (in this case, a rust compiler) that pip2nix does not provide. This fork of pip2nix allows overriding packages to add extra dependencies. 
+Certain python packages, such as cryptography, require extra dependencies (in this case, a rust compiler) that pip2nix does not provide. This fork of pip2nix allows overriding packages to add extra dependencies.
 
 pip2nix
 =======
